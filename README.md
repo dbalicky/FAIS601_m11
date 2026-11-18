@@ -39,6 +39,70 @@ git commit -m 'initial commit'
 git push -u origin main
 ```
 
+
+# Docker setup
+
+## Setup Docker repo
+
+**Created repo: dbal7/fais601_m11**
+
+**Added secrets from docker to gitHub repo settings**
+
+**Updated docker tags in test.yml:**
+```yml
+tags: |
+    dbal7/fais601_m11:latest
+    dbal7/fais601_m11:${{ github.sha }}
+    ...
+    cache-from: type=registry,ref=dbal7/fais601_m11:cache
+    ...
+```
+
+## Check if docker is working
+```bash
+docker compose ps
+```
+
+## Check if any projects are active
+```bash
+docker compose ls
+```
+
+**If active, erase any previous image data**
+```bash
+docker compose down -v
+```
+
+## Build new image
+```bash
+docker compose up --build
+
+# or to run in background
+docker compose up --build -d
+```
+
+## Tag image to docker repo
+
+**Use *docker compose ps* to check local Image name**
+
+```bash
+docker tag <local image name> <docker repo image>
+
+# local image name : a11-web:latest
+# docker repo image name: dbal7/fais601_m11:latest
+```
+
+## Push image to docker
+```bash
+docker push <docker repo image>
+```
+
+## Shutdown and remove running image after completion
+```bash
+docker compose -v
+```
+
+
 # Issues
 
 ## Assertion Errors
