@@ -58,3 +58,21 @@ urllib3==2.8.0
 ```bash
 pip install -r requirements.txt --upgrade
 ```
+
+### Update the following in Dockerfile
+**Replace on line 12:**
+```Dockerfile
+python -m pip install --no-cache-dir --upgrade pip "setuptools>=78.1.1" "wheel>=0.46.2" "jaraco.context>=6.1.0" && \
+```
+
+**Replace on lines 17-18:**
+```Dockerfile
+RUN pip install --no-cache-dir -r requirements.txt && \
+   python -m pip install --no-cache-dir --upgrade "setuptools>=78.1.1" "wheel>=0.46.2" "jaraco.context>=6.1.0" 
+```
+
+### Fix stuck setuptools version
+**Add to aquasecurity/trivy-action in test.yml**
+```yml
+skip-files: '**/pip/_vendor/bom.cdx.json'
+```
