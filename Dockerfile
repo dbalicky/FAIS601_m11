@@ -9,12 +9,13 @@ RUN apt-get update && \
    apt-get upgrade -y && \
    apt-get install -y --no-install-recommends gcc python3-dev libssl-dev && \
    rm -rf /var/lib/apt/lists/* && \
-   python -m pip install --upgrade pip setuptools>=70.0.0 wheel && \
+   python -m pip install --no-cache-dir --upgrade pip "setuptools>=78.1.1" "wheel>=0.46.2" "jaraco.context>=6.1.0" && \
    groupadd -r appgroup && \
    useradd -r -g appgroup appuser
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt && \
+   python -m pip install --no-cache-dir --upgrade "setuptools>=78.1.1" "wheel>=0.46.2" "jaraco.context>=6.1.0" 
 
 COPY . .
 RUN chown -R appuser:appgroup /app
