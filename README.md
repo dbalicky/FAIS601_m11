@@ -38,3 +38,9 @@ git commit -m 'initial commit'
 
 git push -u origin main
 ```
+
+# Issues
+
+## Assertion Errors
+
+Pytest resulted in 2 failed tests in test_e2e.py with 2 assertion errors. Retried pytest a few times and they passed.
